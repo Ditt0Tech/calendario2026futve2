@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calendario Completo Liga FUTVE 2 - 2026</title>
+    <title>FUTVE 2 - Calendario y Posiciones 2026</title>
     <!-- Tailwind CSS para el diseño -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons -->
@@ -22,6 +22,50 @@
             min-width: 60px;
             text-align: center;
         }
+        
+        /* Estilos personalizados para el slider */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]:focus {
+            outline: none;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 8px;
+            cursor: pointer;
+            background: #e5e7eb;
+            border-radius: 10px;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+            background: #1d4ed8;
+            cursor: pointer;
+            -webkit-appearance: none;
+            margin-top: -8px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            border: 3px solid white;
+        }
+        input[type=range]::-moz-range-track {
+            width: 100%;
+            height: 8px;
+            cursor: pointer;
+            background: #e5e7eb;
+            border-radius: 10px;
+        }
+        input[type=range]::-moz-range-thumb {
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+            background: #1d4ed8;
+            cursor: pointer;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            border: 3px solid white;
+        }
     </style>
 </head>
 <body class="bg-neutral-100 text-neutral-900 min-h-screen p-4 md:p-8">
@@ -33,54 +77,132 @@
             <div class="flex items-center gap-5">
                <div class="w-20 h-20 bg-blue-700 rounded-2xl shadow-lg flex items-center justify-center overflow-hidden border border-blue-800 shrink-0">
                     <img 
-                        src="9b6d3082-2c8b-438b-a0ed-5d8300be8bc4.png" 
+                        src="image_07ca51.png" 
                         alt="Logo FUTVE 2" 
                         class="w-full h-full object-contain p-1"
                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
                     >
+                    <div class="hidden w-full h-full items-center justify-center text-white font-black text-center p-2 leading-none flex-col">
+                        <span class="text-[10px] opacity-70 uppercase tracking-tighter">Liga</span>
+                        <span class="text-lg leading-none">FUTVE</span>
+                        <span class="text-xl">2</span>
+                    </div>
                 </div>
                 <div>
                     <h1 class="text-3xl font-black text-neutral-800 tracking-tight leading-none mb-1">FUTVE 2</h1>
-                    <p class="text-neutral-500 font-bold text-sm uppercase tracking-widest">Calendario y Resultados 2026</p>
+                    <p class="text-neutral-500 font-bold text-sm uppercase tracking-widest">Temporada 2026</p>
                 </div>
             </div>
-            <div class="relative group">
-                <i data-lucide="search" class="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-400 w-4 h-4 transition-colors"></i>
-                <input 
-                    type="text" 
-                    id="search-input"
-                    placeholder="Buscar equipo..." 
-                    class="pl-12 pr-6 py-3 bg-neutral-50 border border-neutral-200 rounded-2xl text-sm focus:ring-4 focus:ring-blue-100 focus:bg-white outline-none transition-all w-full md:w-64 font-medium"
-                />
+            
+            <div class="flex bg-neutral-100 p-1 rounded-2xl border border-neutral-200">
+                <button onclick="setView('calendario')" id="btn-calendario" class="px-6 py-2 rounded-xl text-sm font-black transition-all bg-white shadow-sm text-blue-700">CALENDARIO</button>
+                <button onclick="setView('tablas')" id="btn-tablas" class="px-6 py-2 rounded-xl text-sm font-black transition-all text-neutral-500">TABLAS</button>
             </div>
         </header>
 
-        <!-- Navegación de Jornadas -->
-        <div class="space-y-4">
-            <div id="jornada-container" class="flex items-center gap-2 overflow-x-auto pb-4 no-scrollbar">
-                <!-- Se genera dinámicamente -->
+        <!-- Vista Calendario -->
+        <div id="view-calendario" class="space-y-6">
+            <div class="space-y-4">
+                
+                <!-- Barra Deslizante (Slider) -->
+                <div class="bg-white p-6 rounded-[2rem] border border-neutral-200 shadow-sm space-y-4">
+                    <div class="flex justify-between items-center px-2">
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="sliders-horizontal" class="w-4 h-4 text-neutral-400"></i>
+                            <span class="text-[10px] font-black uppercase text-neutral-400 tracking-widest">Navegación Rápida</span>
+                        </div>
+                        <span id="slider-label" class="text-lg font-black text-blue-700 bg-blue-50 px-4 py-1 rounded-xl">Jornada 1</span>
+                    </div>
+                    <input 
+                        type="range" 
+                        id="jornada-slider" 
+                        min="1" 
+                        max="18" 
+                        step="1" 
+                        value="1"
+                        oninput="handleSlider(this.value)"
+                        class="w-full"
+                    >
+                </div>
+
+                <div id="jornada-container" class="flex items-center gap-2 overflow-x-auto pb-4 no-scrollbar"></div>
+
+                <div class="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
+                    <div class="flex flex-wrap items-center gap-2 bg-white p-2 rounded-2xl border border-neutral-200 shadow-sm w-fit" id="filter-container">
+                        <button onclick="setFilter('Todos')" class="filter-btn px-5 py-2 rounded-xl text-xs font-black uppercase tracking-wider transition-all bg-neutral-800 text-white" data-group="Todos">Todos</button>
+                        <button onclick="setFilter('Centro-Occidental')" class="filter-btn px-5 py-2 rounded-xl text-xs font-black uppercase tracking-wider transition-all text-neutral-500 hover:bg-neutral-100" data-group="Centro-Occidental">Centro-Occidental</button>
+                        <button onclick="setFilter('Centro-Oriental')" class="filter-btn px-5 py-2 rounded-xl text-xs font-black uppercase tracking-wider transition-all text-neutral-500 hover:bg-neutral-100" data-group="Centro-Oriental">Centro-Oriental</button>
+                    </div>
+
+                    <div class="relative w-full md:w-64">
+                        <i data-lucide="search" class="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-400 w-4 h-4 transition-colors"></i>
+                        <input type="text" id="search-input" placeholder="Buscar equipo..." class="pl-12 pr-6 py-3 bg-white border border-neutral-200 rounded-2xl text-sm focus:ring-4 focus:ring-blue-100 outline-none transition-all w-full font-medium shadow-sm" />
+                    </div>
+                </div>
             </div>
 
-            <!-- Filtros de Grupo -->
-            <div class="flex flex-wrap items-center gap-2 bg-white p-2 rounded-2xl border border-neutral-200 shadow-sm w-fit" id="filter-container">
-                <button onclick="setFilter('Todos')" class="filter-btn px-5 py-2 rounded-xl text-xs font-black uppercase tracking-wider transition-all bg-neutral-800 text-white" data-group="Todos">Todos</button>
-                <button onclick="setFilter('Centro-Occidental')" class="filter-btn px-5 py-2 rounded-xl text-xs font-black uppercase tracking-wider transition-all text-neutral-500 hover:bg-neutral-100" data-group="Centro-Occidental">Centro-Occidental</button>
-                <button onclick="setFilter('Centro-Oriental')" class="filter-btn px-5 py-2 rounded-xl text-xs font-black uppercase tracking-wider transition-all text-neutral-500 hover:bg-neutral-100" data-group="Centro-Oriental">Centro-Oriental</button>
+            <div id="matches-list" class="grid gap-3"></div>
+        </div>
+
+        <!-- Vista Tablas -->
+        <div id="view-tablas" class="hidden space-y-8">
+            <div class="bg-white rounded-[2.5rem] p-6 shadow-sm border border-neutral-200 overflow-hidden">
+                <h3 class="text-xl font-black text-neutral-800 mb-4 px-2 flex items-center gap-2">
+                    <span class="w-2 h-6 bg-amber-500 rounded-full"></span> GRUPO CENTRO-OCCIDENTAL
+                </h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse min-w-[600px]">
+                        <thead>
+                            <tr class="text-[10px] font-black uppercase text-neutral-400 border-b border-neutral-100 text-center">
+                                <th class="py-3 px-4 text-left">#</th>
+                                <th class="py-3 px-4 text-left">Equipo</th>
+                                <th class="py-3 px-2">PJ</th>
+                                <th class="py-3 px-2">G</th>
+                                <th class="py-3 px-2">E</th>
+                                <th class="py-3 px-2">P</th>
+                                <th class="py-3 px-2">GF</th>
+                                <th class="py-3 px-2">GC</th>
+                                <th class="py-3 px-2">DG</th>
+                                <th class="py-3 px-4 text-blue-700">PTS</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-occidental"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-[2.5rem] p-6 shadow-sm border border-neutral-200 overflow-hidden">
+                <h3 class="text-xl font-black text-neutral-800 mb-4 px-2 flex items-center gap-2">
+                    <span class="w-2 h-6 bg-blue-500 rounded-full"></span> GRUPO CENTRO-ORIENTAL
+                </h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse min-w-[600px]">
+                        <thead>
+                            <tr class="text-[10px] font-black uppercase text-neutral-400 border-b border-neutral-100 text-center">
+                                <th class="py-3 px-4 text-left">#</th>
+                                <th class="py-3 px-4 text-left">Equipo</th>
+                                <th class="py-3 px-2">PJ</th>
+                                <th class="py-3 px-2">G</th>
+                                <th class="py-3 px-2">E</th>
+                                <th class="py-3 px-2">P</th>
+                                <th class="py-3 px-2">GF</th>
+                                <th class="py-3 px-2">GC</th>
+                                <th class="py-3 px-2">DG</th>
+                                <th class="py-3 px-4 text-blue-700">PTS</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-oriental"></tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
-        <!-- Lista de Partidos -->
-        <div id="matches-list" class="grid gap-3">
-            <!-- Se genera dinámicamente -->
-        </div>
-
-        <!-- Nota Pie de Página -->
-        <div class="p-4 bg-white/50 rounded-2xl border border-neutral-200 text-center">
+        <footer class="p-4 bg-white/50 rounded-2xl border border-neutral-200 text-center">
             <p class="text-[10px] text-neutral-400 font-bold uppercase tracking-widest leading-relaxed">
-                Nota: Resultados actualizados según reportes oficiales. El fixture es susceptible a cambios.<br>
-                Liga de Fútbol Profesional de Venezuela • FUTVE 2026
+                Información extraída de Fixture Oficial FUTVE 2 2026<br>
+                Dirección de Competiciones • FVF
             </p>
-        </div>
+        </footer>
     </div>
 
     <script>
@@ -119,10 +241,10 @@
             { jornada: 3, grupo: 'Centro-Occidental', local: 'LIBRE', visitante: 'Barquisimeto', sede: '-', fecha: '07 Mar', score: null },
 
             // JORNADA 4
-            { jornada: 4, grupo: 'Centro-Oriental', local: 'Monagas - B', visitante: 'Bolívar', sede: 'Maturín', fecha: '21-22 Mar', score: null },
-            { jornada: 4, grupo: 'Centro-Oriental', local: 'Miranda', visitante: 'Mineros', sede: 'Caracas', fecha: '21-22 Mar', score: null },
-            { jornada: 4, grupo: 'Centro-Oriental', local: 'Dynamo Puerto', visitante: 'Atlético Ávila', sede: 'Puerto La Cruz', fecha: '21-22 Mar', score: null },
-            { jornada: 4, grupo: 'Centro-Oriental', local: 'Aragua', visitante: 'Marítimo La Guaira', sede: 'Maracay', fecha: '21-22 Mar', score: null },
+            { jornada: 4, grupo: 'Centro-Oriental', local: 'Monagas - B', visitante: 'Bolívar', sede: 'Maturín', fecha: '21 Mar', score: null },
+            { jornada: 4, grupo: 'Centro-Oriental', local: 'Miranda', visitante: 'Mineros', sede: 'Caracas', fecha: '22 Mar', score: null },
+            { jornada: 4, grupo: 'Centro-Oriental', local: 'Dynamo Puerto', visitante: 'Atlético Ávila', sede: 'Puerto La Cruz', fecha: '21 Mar', score: null },
+            { jornada: 4, grupo: 'Centro-Oriental', local: 'Aragua', visitante: 'Marítimo La Guaira', sede: 'Maracay', fecha: '22 Mar', score: null },
             { jornada: 4, grupo: 'Centro-Occidental', local: 'Yaracuyanos', visitante: 'Real Frontera', sede: 'San Felipe', fecha: '14 Mar', score: '2-1' },
             { jornada: 4, grupo: 'Centro-Occidental', local: 'El Vigía', visitante: 'Puerto Cabello - B', sede: 'El Vigía', fecha: '14 Mar', score: '1-4' },
             { jornada: 4, grupo: 'Centro-Occidental', local: 'Atlético Barinas', visitante: 'Zamora - B', sede: 'Barinas', fecha: '15 Mar', score: '2-2' },
@@ -239,28 +361,22 @@
             { jornada: 14, grupo: 'Centro-Occidental', local: 'Deportivo Lara', visitante: 'Real Frontera', sede: 'Cabudare', fecha: 'S/D', score: null },
             { jornada: 14, grupo: 'Centro-Occidental', local: 'LIBRE', visitante: 'Ureña', sede: '-', fecha: 'S/D', score: null },
 
-            // JORNADA 15 (Solo Occidental)
+            // JORNADAS 15-18 (OCCIDENTAL)
             { jornada: 15, grupo: 'Centro-Occidental', local: 'Puerto Cabello - B', visitante: 'Deportivo Lara', sede: 'Puerto Cabello', fecha: 'S/D', score: null },
             { jornada: 15, grupo: 'Centro-Occidental', local: 'Zamora - B', visitante: 'Yaracuyanos', sede: 'Barinas', fecha: 'S/D', score: null },
             { jornada: 15, grupo: 'Centro-Occidental', local: 'Barquisimeto', visitante: 'El Vigía', sede: 'Barquisimeto', fecha: 'S/D', score: null },
             { jornada: 15, grupo: 'Centro-Occidental', local: 'Ureña', visitante: 'Atlético Barinas', sede: 'Ureña', fecha: 'S/D', score: null },
             { jornada: 15, grupo: 'Centro-Occidental', local: 'LIBRE', visitante: 'Real Frontera', sede: '-', fecha: 'S/D', score: null },
-
-            // JORNADA 16 (Solo Occidental)
             { jornada: 16, grupo: 'Centro-Occidental', local: 'El Vigía', visitante: 'Ureña', sede: 'El Vigía', fecha: 'S/D', score: null },
             { jornada: 16, grupo: 'Centro-Occidental', local: 'Yaracuyanos', visitante: 'Barquisimeto', sede: 'San Felipe', fecha: 'S/D', score: null },
             { jornada: 16, grupo: 'Centro-Occidental', local: 'Deportivo Lara', visitante: 'Zamora - B', sede: 'Cabudare', fecha: 'S/D', score: null },
             { jornada: 16, grupo: 'Centro-Occidental', local: 'Real Frontera', visitante: 'Puerto Cabello - B', sede: 'San Cristóbal', fecha: 'S/D', score: null },
             { jornada: 16, grupo: 'Centro-Occidental', local: 'LIBRE', visitante: 'Atlético Barinas', sede: '-', fecha: 'S/D', score: null },
-
-            // JORNADA 17 (Solo Occidental)
             { jornada: 17, grupo: 'Centro-Occidental', local: 'Zamora - B', visitante: 'Real Frontera', sede: 'Barinas', fecha: 'S/D', score: null },
             { jornada: 17, grupo: 'Centro-Occidental', local: 'Barquisimeto', visitante: 'Deportivo Lara', sede: 'Barquisimeto', fecha: 'S/D', score: null },
             { jornada: 17, grupo: 'Centro-Occidental', local: 'Ureña', visitante: 'Yaracuyanos', sede: 'Ureña', fecha: 'S/D', score: null },
             { jornada: 17, grupo: 'Centro-Occidental', local: 'Atlético Barinas', visitante: 'El Vigía', sede: 'Barinas', fecha: 'S/D', score: null },
             { jornada: 17, grupo: 'Centro-Occidental', local: 'LIBRE', visitante: 'Puerto Cabello - B', sede: '-', fecha: 'S/D', score: null },
-
-            // JORNADA 18 (Solo Occidental)
             { jornada: 18, grupo: 'Centro-Occidental', local: 'Yaracuyanos', visitante: 'Atlético Barinas', sede: 'San Felipe', fecha: 'S/D', score: null },
             { jornada: 18, grupo: 'Centro-Occidental', local: 'Deportivo Lara', visitante: 'Ureña', sede: 'Cabudare', fecha: 'S/D', score: null },
             { jornada: 18, grupo: 'Centro-Occidental', local: 'Real Frontera', visitante: 'Barquisimeto', sede: 'San Cristóbal', fecha: 'S/D', score: null },
@@ -271,15 +387,94 @@
         let selectedJornada = 1;
         let filterGroup = 'Todos';
         let searchTerm = '';
+        let currentView = 'calendario';
 
         function init() {
             renderJornadas();
             renderMatches();
+            renderTablas();
             lucide.createIcons();
-
             document.getElementById('search-input').addEventListener('input', (e) => {
                 searchTerm = e.target.value.toLowerCase();
                 renderMatches();
+            });
+        }
+
+        function setView(view) {
+            currentView = view;
+            const calView = document.getElementById('view-calendario');
+            const tabView = document.getElementById('view-tablas');
+            const btnCal = document.getElementById('btn-calendario');
+            const btnTab = document.getElementById('btn-tablas');
+
+            if (view === 'calendario') {
+                calView.classList.remove('hidden');
+                tabView.classList.add('hidden');
+                btnCal.classList.add('bg-white', 'shadow-sm', 'text-blue-700');
+                btnCal.classList.remove('text-neutral-500');
+                btnTab.classList.remove('bg-white', 'shadow-sm', 'text-blue-700');
+                btnTab.classList.add('text-neutral-500');
+            } else {
+                calView.classList.add('hidden');
+                tabView.classList.remove('hidden');
+                btnTab.classList.add('bg-white', 'shadow-sm', 'text-blue-700');
+                btnTab.classList.remove('text-neutral-500');
+                btnCal.classList.remove('bg-white', 'shadow-sm', 'text-blue-700');
+                btnCal.classList.add('text-neutral-500');
+                renderTablas();
+            }
+        }
+
+        function handleSlider(val) {
+            selectedJornada = parseInt(val);
+            document.getElementById('slider-label').innerText = `Jornada ${selectedJornada}`;
+            renderJornadas();
+            renderMatches();
+        }
+
+        function calculateStandings(group) {
+            const stats = {};
+            scheduleData.forEach(m => {
+                if (m.grupo === group) {
+                    if (m.local !== 'LIBRE' && !stats[m.local]) stats[m.local] = { equipo: m.local, pj: 0, g: 0, e: 0, p: 0, gf: 0, gc: 0, dg: 0, pts: 0 };
+                    if (m.visitante !== 'LIBRE' && !stats[m.visitante]) stats[m.visitante] = { equipo: m.visitante, pj: 0, g: 0, e: 0, p: 0, gf: 0, gc: 0, dg: 0, pts: 0 };
+                }
+            });
+
+            scheduleData.forEach(m => {
+                if (m.grupo === group && m.score && m.local !== 'LIBRE' && m.visitante !== 'LIBRE') {
+                    const [gLocal, gVisitante] = m.score.split('-').map(Number);
+                    stats[m.local].pj++; stats[m.visitante].pj++;
+                    stats[m.local].gf += gLocal; stats[m.local].gc += gVisitante;
+                    stats[m.visitante].gf += gVisitante; stats[m.visitante].gc += gLocal;
+                    if (gLocal > gVisitante) { stats[m.local].g++; stats[m.local].pts += 3; stats[m.visitante].p++; }
+                    else if (gLocal < gVisitante) { stats[m.visitante].g++; stats[m.visitante].pts += 3; stats[m.local].p++; }
+                    else { stats[m.local].e++; stats[m.visitante].e++; stats[m.local].pts += 1; stats[m.visitante].pts += 1; }
+                }
+            });
+
+            return Object.values(stats).map(s => ({ ...s, dg: s.gf - s.gc }))
+                .sort((a, b) => (b.pts - a.pts) || (b.dg - a.dg) || (b.gf - a.gf));
+        }
+
+        function renderTablas() {
+            ['Centro-Occidental', 'Centro-Oriental'].forEach(group => {
+                const standings = calculateStandings(group);
+                const tbody = document.getElementById(group === 'Centro-Occidental' ? 'table-occidental' : 'table-oriental');
+                tbody.innerHTML = standings.map((s, idx) => `
+                    <tr class="border-b border-neutral-50 hover:bg-neutral-50 transition-colors text-center">
+                        <td class="py-4 px-4 font-black text-neutral-400 text-xs text-left">${idx + 1}</td>
+                        <td class="py-4 px-4 font-bold text-neutral-800 text-left">${s.equipo}</td>
+                        <td class="py-4 px-2 text-sm font-medium">${s.pj}</td>
+                        <td class="py-4 px-2 text-sm font-medium">${s.g}</td>
+                        <td class="py-4 px-2 text-sm font-medium">${s.e}</td>
+                        <td class="py-4 px-2 text-sm font-medium">${s.p}</td>
+                        <td class="py-4 px-2 text-sm font-medium">${s.gf}</td>
+                        <td class="py-4 px-2 text-sm font-medium">${s.gc}</td>
+                        <td class="py-4 px-2 text-sm font-black ${s.dg >= 0 ? 'text-emerald-600' : 'text-rose-600'}">${s.dg > 0 ? '+' : ''}${s.dg}</td>
+                        <td class="py-4 px-4 font-black text-blue-700">${s.pts}</td>
+                    </tr>
+                `).join('');
             });
         }
 
@@ -287,31 +482,26 @@
             const container = document.getElementById('jornada-container');
             const jornadas = [...new Set(scheduleData.map(d => d.jornada))].sort((a,b) => a-b);
             
+            const slider = document.getElementById('jornada-slider');
+            if(slider && parseInt(slider.value) !== selectedJornada) {
+                slider.value = selectedJornada;
+                document.getElementById('slider-label').innerText = `Jornada ${selectedJornada}`;
+            }
+
             container.innerHTML = jornadas.map(j => `
-                <button onclick="setJornada(${j})" 
-                        class="jornada-btn px-5 py-2.5 rounded-xl text-sm font-black whitespace-nowrap transition-all flex flex-col items-center min-w-[90px] ${selectedJornada === j ? 'bg-blue-600 text-white shadow-lg shadow-blue-200 -translate-y-1' : 'bg-white text-neutral-500 border border-neutral-200 hover:border-blue-300'}">
-                    <span class="text-[10px] uppercase opacity-60 font-black tracking-tighter">Jornada</span>
-                    <span class="text-lg leading-none mt-1">${j}</span>
+                <button onclick="setJornada(${j})" class="jornada-btn px-5 py-2.5 rounded-xl text-sm font-black whitespace-nowrap transition-all flex flex-col items-center min-w-[90px] ${selectedJornada === j ? 'bg-blue-600 text-white shadow-lg shadow-blue-200 -translate-y-1' : 'bg-white text-neutral-500 border border-neutral-200 hover:border-blue-300'}">
+                    <span class="text-[10px] uppercase opacity-60 font-black tracking-tighter">Jornada</span><span class="text-lg leading-none mt-1">${j}</span>
                 </button>
             `).join('');
         }
 
-        function setJornada(j) {
-            selectedJornada = j;
-            renderJornadas();
-            renderMatches();
-        }
+        function setJornada(j) { selectedJornada = j; renderJornadas(); renderMatches(); }
 
         function setFilter(group) {
             filterGroup = group;
             document.querySelectorAll('.filter-btn').forEach(btn => {
-                if(btn.dataset.group === group) {
-                    btn.classList.add('bg-neutral-800', 'text-white');
-                    btn.classList.remove('text-neutral-500');
-                } else {
-                    btn.classList.remove('bg-neutral-800', 'text-white');
-                    btn.classList.add('text-neutral-500');
-                }
+                if(btn.dataset.group === group) { btn.classList.add('bg-neutral-800', 'text-white'); btn.classList.remove('text-neutral-500'); }
+                else { btn.classList.remove('bg-neutral-800', 'text-white'); btn.classList.add('text-neutral-500'); }
             });
             renderMatches();
         }
@@ -326,38 +516,24 @@
             });
 
             if (filtered.length === 0) {
-                list.innerHTML = `
-                    <div class="flex flex-col items-center justify-center py-20 bg-white rounded-[2.5rem] border border-dashed border-neutral-300 text-center px-10">
-                        <i data-lucide="info" class="w-10 h-10 text-neutral-200 mb-4"></i>
-                        <p class="text-neutral-400 font-bold text-lg">No hay encuentros programados</p>
-                        <p class="text-neutral-300 text-sm">Este grupo no tiene partidos en esta jornada.</p>
-                    </div>
-                `;
+                list.innerHTML = `<div class="flex flex-col items-center justify-center py-20 bg-white rounded-[2.5rem] border border-dashed border-neutral-300 text-center px-10"><i data-lucide="info" class="w-10 h-10 text-neutral-200 mb-4"></i><p class="text-neutral-400 font-bold text-lg">No hay encuentros programados</p></div>`;
             } else {
                 list.innerHTML = filtered.map(m => {
                     const isLibre = m.local === 'LIBRE' || m.visitante === 'LIBRE';
-                    const scoreDisplay = m.score 
-                        ? `<div class="score-box bg-blue-50 border-blue-200 text-blue-700">${m.score}</div>` 
-                        : `<div class="score-box text-neutral-300">VS</div>`;
-
+                    const scoreDisplay = m.score ? `<div class="score-box bg-blue-50 border-blue-200 text-blue-700">${m.score}</div>` : `<div class="score-box text-neutral-300">VS</div>`;
                     return `
                         <div class="bg-white p-6 rounded-3xl border shadow-sm transition-all flex flex-col md:flex-row items-center gap-6 ${isLibre ? 'border-dashed border-amber-300 bg-amber-50/30' : 'border-neutral-200 hover:border-blue-400'}">
                             <div class="flex md:flex-col items-center md:items-start justify-between w-full md:w-32 gap-2 border-b md:border-b-0 md:border-r border-neutral-100 pb-3 md:pb-0 md:pr-4">
                                 <span class="text-[10px] font-black uppercase text-blue-600 tracking-tighter bg-blue-50 px-2 py-1 rounded-lg truncate">${m.grupo}</span>
-                                <div class="flex items-center text-neutral-400 text-xs font-bold">
-                                    <i data-lucide="calendar" class="w-3.5 h-3.5 mr-1.5 text-neutral-300"></i>${m.fecha}
-                                </div>
+                                <div class="flex items-center text-neutral-400 text-xs font-bold"><i data-lucide="calendar" class="w-3.5 h-3.5 mr-1.5 text-neutral-300"></i>${m.fecha}</div>
                             </div>
                             <div class="flex-1 flex items-center justify-between w-full">
                                 <div class="flex-1 text-right text-base md:text-xl font-black ${isLibre && m.local === 'LIBRE' ? 'text-amber-600 italic' : 'text-neutral-800'}">${m.local}</div>
-                                <div class="mx-6 flex flex-col items-center">
-                                    ${scoreDisplay}
-                                </div>
+                                <div class="mx-6 flex flex-col items-center">${scoreDisplay}</div>
                                 <div class="flex-1 text-left text-base md:text-xl font-black ${isLibre && m.visitante === 'LIBRE' ? 'text-amber-600 italic' : 'text-neutral-800'}">${m.visitante}</div>
                             </div>
                             <div class="flex items-center justify-end w-full md:w-40 text-neutral-500 text-sm font-bold bg-neutral-50 md:bg-transparent p-3 md:p-0 rounded-2xl">
-                                <i data-lucide="map-pin" class="w-4 h-4 mr-2 text-red-400"></i>
-                                ${m.sede === '-' ? '<span class="text-amber-600 italic">Descanso</span>' : m.sede}
+                                <i data-lucide="map-pin" class="w-4 h-4 mr-2 text-red-400"></i>${m.sede === '-' ? '<span class="text-amber-600 italic">Descanso</span>' : m.sede}
                             </div>
                         </div>
                     `;
@@ -365,8 +541,10 @@
             }
             lucide.createIcons();
         }
-
         window.onload = init;
+    </script>
+</body>
+</html>
     </script>
 </body>
 </html>
