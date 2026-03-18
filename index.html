@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FUTVE 2 - Calendario Completo y Posiciones 2026</title>
-    <!-- Tailwind CSS para el diseño -->
+    <meta name="author" content="ditt0tech">
+    <meta name="copyright" content="ditt0tech">
+    <title>FUTVE 2 - Calendario y Posiciones 2026 | by ditt0tech</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -27,8 +29,7 @@
             min-width: 60px;
             text-align: center;
         }
-
-        /* Deshabilitar selección de texto para evitar copiado fácil */
+        /* Bloqueo de selección para protección básica */
         body {
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -46,7 +47,8 @@
             <div class="flex items-center gap-5">
                <div class="w-20 h-20 bg-blue-700 rounded-2xl shadow-lg flex items-center justify-center overflow-hidden border border-blue-800 shrink-0">
                     <img 
-                        src="image_07ca51.png"
+                        src="image_07ca51.png" 
+                        alt="Logo FUTVE 2" 
                         class="w-full h-full object-contain p-1"
                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
                     >
@@ -57,7 +59,7 @@
                     </div>
                 </div>
                 <div>
-                    <h1 class="text-3xl font-black text-neutral-800 tracking-tight leading-none mb-1">FUTVE 2</h1>
+                    <h1 class="text-3xl font-black text-neutral-800 tracking-tight leading-none mb-1 uppercase">FUTVE 2</h1>
                     <p class="text-neutral-500 font-bold text-sm uppercase tracking-widest">Temporada 2026</p>
                 </div>
             </div>
@@ -69,10 +71,10 @@
                 </div>
 
                 <div class="flex gap-2">
-                    <button onclick="exportToExcel()" class="p-2.5 bg-emerald-50 text-emerald-700 rounded-xl border border-emerald-200 hover:bg-emerald-100 transition-all group" title="Descargar Excel">
+                    <button onclick="exportToExcel()" class="p-2.5 bg-emerald-50 text-emerald-700 rounded-xl border border-emerald-200 hover:bg-emerald-100 transition-all" title="Descargar Excel">
                         <i data-lucide="file-spreadsheet" class="w-5 h-5"></i>
                     </button>
-                    <button onclick="exportToPDF()" class="p-2.5 bg-rose-50 text-rose-700 rounded-xl border border-rose-200 hover:bg-rose-100 transition-all group" title="Descargar PDF">
+                    <button onclick="exportToPDF()" class="p-2.5 bg-rose-50 text-rose-700 rounded-xl border border-rose-200 hover:bg-rose-100 transition-all" title="Descargar PDF">
                         <i data-lucide="file-text" class="w-5 h-5"></i>
                     </button>
                 </div>
@@ -115,7 +117,6 @@
 
         <!-- Vista Tablas -->
         <div id="view-tablas" class="hidden space-y-8">
-            <!-- Occidental -->
             <div class="bg-white rounded-[2.5rem] p-6 shadow-sm border border-neutral-200 overflow-hidden">
                 <h3 class="text-xl font-black text-neutral-800 mb-4 px-2 flex items-center gap-2 uppercase">
                     <span class="w-2 h-6 bg-amber-500 rounded-full"></span> Grupo Centro-Occidental
@@ -141,7 +142,6 @@
                 </div>
             </div>
 
-            <!-- Oriental -->
             <div class="bg-white rounded-[2.5rem] p-6 shadow-sm border border-neutral-200 overflow-hidden">
                 <h3 class="text-xl font-black text-neutral-800 mb-4 px-2 flex items-center gap-2 uppercase">
                     <span class="w-2 h-6 bg-blue-500 rounded-full"></span> Grupo Centro-Oriental
@@ -168,30 +168,29 @@
             </div>
         </div>
 
-        <footer class="p-4 bg-white/50 rounded-2xl border border-neutral-200 text-center">
-            <p class="text-[10px] text-neutral-400 font-bold uppercase tracking-widest leading-relaxed">
-                Información extraída de Fixture Oficial FUTVE 2 2026 • FVF
+        <!-- Footer con Firma ditt0tech -->
+        <footer class="p-6 bg-white/50 rounded-3xl border border-neutral-200 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-[10px] text-neutral-400 font-bold uppercase tracking-widest text-center md:text-left leading-relaxed">
+                Información extraída de Fixture Oficial FUTVE 2 2026<br>
+                Dirección de Competiciones • FVF
             </p>
+            <a href="https://github.com/Ditt0Tech" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 px-4 py-2 bg-blue-600 rounded-2xl shadow-lg shadow-blue-200/50 cursor-pointer hover:bg-blue-700 hover:-translate-y-0.5 transition-all duration-200" title="Visitar GitHub de ditt0tech">
+                <i data-lucide="github" class="text-blue-100 w-4 h-4"></i>
+                <span class="text-white text-[10px] font-black uppercase tracking-tighter italic">Developed by ditt0tech</span>
+            </a>
         </footer>
     </div>
 
     <script>
-        // MECANISMOS DE PROTECCIÓN DISUASORIA
-        // 1. Deshabilitar Clic Derecho
-        document.addEventListener('contextmenu', event => event.preventDefault());
+        /**
+         * Desarrollado por ditt0tech
+         * Copyright 2026 - Todos los derechos reservados.
+         */
 
-        // 2. Bloquear combinaciones de teclas comunes de inspección
+        // PROTECCIÓN DE INTERFAZ DISUASORIA
+        document.addEventListener('contextmenu', event => event.preventDefault());
         document.onkeydown = function(e) {
-            // Deshabilitar F12
-            if (e.keyCode == 123) return false;
-            // Deshabilitar Ctrl+Shift+I (Inspeccionar)
-            if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false;
-            // Deshabilitar Ctrl+Shift+C (Inspeccionar elemento)
-            if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) return false;
-            // Deshabilitar Ctrl+Shift+J (Consola)
-            if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) return false;
-            // Deshabilitar Ctrl+U (Ver código fuente)
-            if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false;
+            if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'C'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) || (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0))) return false;
         };
 
         const scheduleData = [
@@ -229,17 +228,148 @@
             { jornada: 3, grupo: 'Centro-Occidental', local: 'LIBRE', visitante: 'Barquisimeto', sede: '-', fecha: '07 Mar', score: null },
 
             // JORNADA 4
+            { jornada: 4, grupo: 'Centro-Oriental', local: 'Monagas - B', visitante: 'Bolívar', sede: 'Maturín', fecha: '21 Mar', score: null },
+            { jornada: 4, grupo: 'Centro-Oriental', local: 'Miranda', visitante: 'Mineros', sede: 'Caracas', fecha: '22 Mar', score: null },
+            { jornada: 4, grupo: 'Centro-Oriental', local: 'Dynamo Puerto', visitante: 'Atlético Ávila', sede: 'Puerto La Cruz', fecha: '21 Mar', score: null },
+            { jornada: 4, grupo: 'Centro-Oriental', local: 'Aragua', visitante: 'Marítimo La Guaira', sede: 'Maracay', fecha: '22 Mar', score: null },
             { jornada: 4, grupo: 'Centro-Occidental', local: 'Yaracuyanos', visitante: 'Real Frontera', sede: 'San Felipe', fecha: '14 Mar', score: '2-1' },
             { jornada: 4, grupo: 'Centro-Occidental', local: 'El Vigía', visitante: 'Puerto Cabello - B', sede: 'El Vigía', fecha: '14 Mar', score: '1-4' },
             { jornada: 4, grupo: 'Centro-Occidental', local: 'Atlético Barinas', visitante: 'Zamora - B', sede: 'Barinas', fecha: '15 Mar', score: '2-2' },
             { jornada: 4, grupo: 'Centro-Occidental', local: 'Ureña', visitante: 'Barquisimeto', sede: 'Ureña', fecha: '15 Mar', score: '1-2' },
             { jornada: 4, grupo: 'Centro-Occidental', local: 'LIBRE', visitante: 'Deportivo Lara', sede: '-', fecha: '14 Mar', score: null },
 
-            // JORNADAS RESTANTES (14-18)
+            // JORNADA 5
+            { jornada: 5, grupo: 'Centro-Oriental', local: 'Bolívar', visitante: 'Marítimo La Guaira', sede: 'Ciudad Bolívar', fecha: 'S/D', score: null },
+            { jornada: 5, grupo: 'Centro-Oriental', local: 'Mineros', visitante: 'Aragua', sede: 'Puerto Ordaz', fecha: 'S/D', score: null },
+            { jornada: 5, grupo: 'Centro-Oriental', local: 'Dynamo Puerto', visitante: 'Miranda', sede: 'Puerto La Cruz', fecha: 'S/D', score: null },
+            { jornada: 5, grupo: 'Centro-Oriental', local: 'Atlético Ávila', visitante: 'Monagas - B', sede: 'Caracas', fecha: 'S/D', score: null },
+            { jornada: 5, grupo: 'Centro-Occidental', local: 'Barquisimeto', visitante: 'Atlético Barinas', sede: 'Barquisimeto', fecha: 'S/D', score: null },
+            { jornada: 5, grupo: 'Centro-Occidental', local: 'Zamora - B', visitante: 'El Vigía', sede: 'Barinas', fecha: 'S/D', score: null },
+            { jornada: 5, grupo: 'Centro-Occidental', local: 'Puerto Cabello - B', visitante: 'Yaracuyanos', sede: 'Puerto Cabello', fecha: 'S/D', score: null },
+            { jornada: 5, grupo: 'Centro-Occidental', local: 'Real Frontera', visitante: 'Deportivo Lara', sede: 'San Cristóbal', fecha: 'S/D', score: null },
+            { jornada: 5, grupo: 'Centro-Occidental', local: 'LIBRE', visitante: 'Ureña', sede: '-', fecha: 'S/D', score: null },
+
+            // JORNADA 6
+            { jornada: 6, grupo: 'Centro-Oriental', local: 'Bolívar', visitante: 'Atlético Ávila', sede: 'Ciudad Bolívar', fecha: 'S/D', score: null },
+            { jornada: 6, grupo: 'Centro-Oriental', local: 'Marítimo La Guaira', visitante: 'Mineros', sede: 'La Guaira', fecha: 'S/D', score: null },
+            { jornada: 6, grupo: 'Centro-Oriental', local: 'Aragua', visitante: 'Dynamo Puerto', sede: 'Maracay', fecha: 'S/D', score: null },
+            { jornada: 6, grupo: 'Centro-Oriental', local: 'Miranda', visitante: 'Monagas - B', sede: 'Caracas', fecha: 'S/D', score: null },
+            { jornada: 6, grupo: 'Centro-Occidental', local: 'Deportivo Lara', visitante: 'Puerto Cabello - B', sede: 'Cabudare', fecha: 'S/D', score: null },
+            { jornada: 6, grupo: 'Centro-Occidental', local: 'Yaracuyanos', visitante: 'Zamora - B', sede: 'San Felipe', fecha: 'S/D', score: null },
+            { jornada: 6, grupo: 'Centro-Occidental', local: 'El Vigía', visitante: 'Barquisimeto', sede: 'El Vigía', fecha: 'S/D', score: null },
+            { jornada: 6, grupo: 'Centro-Occidental', local: 'Atlético Barinas', visitante: 'Ureña', sede: 'Barinas', fecha: 'S/D', score: null },
+            { jornada: 6, grupo: 'Centro-Occidental', local: 'LIBRE', visitante: 'Real Frontera', sede: '-', fecha: 'S/D', score: null },
+
+            // JORNADA 7
+            { jornada: 7, grupo: 'Centro-Oriental', local: 'Miranda', visitante: 'Bolívar', sede: 'Caracas', fecha: 'S/D', score: null },
+            { jornada: 7, grupo: 'Centro-Oriental', local: 'Mineros', visitante: 'Atlético Ávila', sede: 'Puerto Ordaz', fecha: 'S/D', score: null },
+            { jornada: 7, grupo: 'Centro-Oriental', local: 'Dynamo Puerto', visitante: 'Marítimo La Guaira', sede: 'Puerto La Cruz', fecha: 'S/D', score: null },
+            { jornada: 7, grupo: 'Centro-Oriental', local: 'Monagas - B', visitante: 'Aragua', sede: 'Maturín', fecha: 'S/D', score: null },
+            { jornada: 7, grupo: 'Centro-Occidental', local: 'Ureña', visitante: 'El Vigía', sede: 'Ureña', fecha: 'S/D', score: null },
+            { jornada: 7, grupo: 'Centro-Occidental', local: 'Barquisimeto', visitante: 'Yaracuyanos', sede: 'Barquisimeto', fecha: 'S/D', score: null },
+            { jornada: 7, grupo: 'Centro-Occidental', local: 'Zamora - B', visitante: 'Deportivo Lara', sede: 'Barinas', fecha: 'S/D', score: null },
+            { jornada: 7, grupo: 'Centro-Occidental', local: 'Puerto Cabello - B', visitante: 'Real Frontera', sede: 'Puerto Cabello', fecha: 'S/D', score: null },
+            { jornada: 7, grupo: 'Centro-Occidental', local: 'LIBRE', visitante: 'Atlético Barinas', sede: '-', fecha: 'S/D', score: null },
+
+            // JORNADA 8
+            { jornada: 8, grupo: 'Centro-Oriental', local: 'Mineros', visitante: 'Bolívar', sede: 'Puerto Ordaz', fecha: 'S/D', score: null },
+            { jornada: 8, grupo: 'Centro-Oriental', local: 'Monagas - B', visitante: 'Dynamo Puerto', sede: 'Maturín', fecha: 'S/D', score: null },
+            { jornada: 8, grupo: 'Centro-Oriental', local: 'Atlético Ávila', visitante: 'Marítimo La Guaira', sede: 'Caracas', fecha: 'S/D', score: null },
+            { jornada: 8, grupo: 'Centro-Oriental', local: 'Aragua', visitante: 'Miranda', sede: 'Maracay', fecha: 'S/D', score: null },
+            { jornada: 8, grupo: 'Centro-Occidental', local: 'Real Frontera', visitante: 'Zamora - B', sede: 'San Cristóbal', fecha: 'S/D', score: null },
+            { jornada: 8, grupo: 'Centro-Occidental', local: 'Deportivo Lara', visitante: 'Barquisimeto', sede: 'Cabudare', fecha: 'S/D', score: null },
+            { jornada: 8, grupo: 'Centro-Occidental', local: 'Yaracuyanos', visitante: 'Ureña', sede: 'San Felipe', fecha: 'S/D', score: null },
+            { jornada: 8, grupo: 'Centro-Occidental', local: 'El Vigía', visitante: 'Atlético Barinas', sede: 'El Vigía', fecha: 'S/D', score: null },
+            { jornada: 8, grupo: 'Centro-Occidental', local: 'LIBRE', visitante: 'Puerto Cabello - B', sede: '-', fecha: 'S/D', score: null },
+
+            // JORNADA 9
+            { jornada: 9, grupo: 'Centro-Oriental', local: 'Dynamo Puerto', visitante: 'Mineros', sede: 'Puerto La Cruz', fecha: 'S/D', score: null },
+            { jornada: 9, grupo: 'Centro-Oriental', local: 'Marítimo La Guaira', visitante: 'Monagas - B', sede: 'La Guaira', fecha: 'S/D', score: null },
+            { jornada: 9, grupo: 'Centro-Oriental', local: 'Miranda', visitante: 'Atlético Ávila', sede: 'Caracas', fecha: 'S/D', score: null },
+            { jornada: 9, grupo: 'Centro-Oriental', local: 'Bolívar', visitante: 'Aragua', sede: 'Ciudad Bolívar', fecha: 'S/D', score: null },
+            { jornada: 9, grupo: 'Centro-Occidental', local: 'Atlético Barinas', visitante: 'Yaracuyanos', sede: 'Barinas', fecha: 'S/D', score: null },
+            { jornada: 9, grupo: 'Centro-Occidental', local: 'Ureña', visitante: 'Deportivo Lara', sede: 'Ureña', fecha: 'S/D', score: null },
+            { jornada: 9, grupo: 'Centro-Occidental', local: 'Barquisimeto', visitante: 'Real Frontera', sede: 'Barquisimeto', fecha: 'S/D', score: null },
+            { jornada: 9, grupo: 'Centro-Occidental', local: 'Zamora - B', visitante: 'Puerto Cabello - B', sede: 'Barinas', fecha: 'S/D', score: null },
+            { jornada: 9, grupo: 'Centro-Occidental', local: 'LIBRE', visitante: 'El Vigía', sede: '-', fecha: 'S/D', score: null },
+
+            // JORNADA 10
+            { jornada: 10, grupo: 'Centro-Oriental', local: 'Dynamo Puerto', visitante: 'Bolívar', sede: 'Puerto La Cruz', fecha: 'S/D', score: null },
+            { jornada: 10, grupo: 'Centro-Oriental', local: 'Monagas - B', visitante: 'Mineros', sede: 'Maturín', fecha: 'S/D', score: null },
+            { jornada: 10, grupo: 'Centro-Oriental', local: 'Miranda', visitante: 'Marítimo La Guaira', sede: 'Caracas', fecha: 'S/D', score: null },
+            { jornada: 10, grupo: 'Centro-Oriental', local: 'Aragua', visitante: 'Atlético Ávila', sede: 'Maracay', fecha: 'S/D', score: null },
+            { jornada: 10, grupo: 'Centro-Occidental', local: 'Barquisimeto', visitante: 'Puerto Cabello - B', sede: 'Barquisimeto', fecha: 'S/D', score: null },
+            { jornada: 10, grupo: 'Centro-Occidental', local: 'Ureña', visitante: 'Real Frontera', sede: 'Ureña', fecha: 'S/D', score: null },
+            { jornada: 10, grupo: 'Centro-Occidental', local: 'Atlético Barinas', visitante: 'Deportivo Lara', sede: 'Barinas', fecha: 'S/D', score: null },
+            { jornada: 10, grupo: 'Centro-Occidental', local: 'El Vigía', visitante: 'Yaracuyanos', sede: 'El Vigía', fecha: 'S/D', score: null },
+            { jornada: 10, grupo: 'Centro-Occidental', local: 'LIBRE', visitante: 'Zamora - B', sede: '-', fecha: 'S/D', score: null },
+
+            // JORNADA 11
+            { jornada: 11, grupo: 'Centro-Oriental', local: 'Bolívar', visitante: 'Monagas - B', sede: 'Ciudad Bolívar', fecha: 'S/D', score: null },
+            { jornada: 11, grupo: 'Centro-Oriental', local: 'Mineros', visitante: 'Miranda', sede: 'Puerto Ordaz', fecha: 'S/D', score: null },
+            { jornada: 11, grupo: 'Centro-Oriental', local: 'Atlético Ávila', visitante: 'Dynamo Puerto', sede: 'Caracas', fecha: 'S/D', score: null },
+            { jornada: 11, grupo: 'Centro-Oriental', local: 'Marítimo La Guaira', visitante: 'Aragua', sede: 'La Guaira', fecha: 'S/D', score: null },
+            { jornada: 11, grupo: 'Centro-Occidental', local: 'Deportivo Lara', visitante: 'El Vigía', sede: 'Cabudare', fecha: 'S/D', score: null },
+            { jornada: 11, grupo: 'Centro-Occidental', local: 'Real Frontera', visitante: 'Atlético Barinas', sede: 'San Cristóbal', fecha: 'S/D', score: null },
+            { jornada: 11, grupo: 'Centro-Occidental', local: 'Puerto Cabello - B', visitante: 'Ureña', sede: 'Puerto Cabello', fecha: 'S/D', score: null },
+            { jornada: 11, grupo: 'Centro-Occidental', local: 'Zamora - B', visitante: 'Barquisimeto', sede: 'Barinas', fecha: 'S/D', score: null },
+            { jornada: 11, grupo: 'Centro-Occidental', local: 'LIBRE', visitante: 'Yaracuyanos', sede: '-', fecha: 'S/D', score: null },
+
+            // JORNADA 12
+            { jornada: 12, grupo: 'Centro-Oriental', local: 'Marítimo La Guaira', visitante: 'Bolívar', sede: 'La Guaira', fecha: 'S/D', score: null },
+            { jornada: 12, grupo: 'Centro-Oriental', local: 'Aragua', visitante: 'Mineros', sede: 'Maracay', fecha: 'S/D', score: null },
+            { jornada: 12, grupo: 'Centro-Oriental', local: 'Miranda', visitante: 'Dynamo Puerto', sede: 'Caracas', fecha: 'S/D', score: null },
+            { jornada: 12, grupo: 'Centro-Oriental', local: 'Monagas - B', visitante: 'Atlético Ávila', sede: 'Maturín', fecha: 'S/D', score: null },
+            { jornada: 12, grupo: 'Centro-Occidental', local: 'Ureña', visitante: 'Zamora - B', sede: 'Ureña', fecha: 'S/D', score: null },
+            { jornada: 12, grupo: 'Centro-Occidental', local: 'Atlético Barinas', visitante: 'Puerto Cabello - B', sede: 'Barinas', fecha: 'S/D', score: null },
+            { jornada: 12, grupo: 'Centro-Occidental', local: 'El Vigía', visitante: 'Real Frontera', sede: 'El Vigía', fecha: 'S/D', score: null },
+            { jornada: 12, grupo: 'Centro-Occidental', local: 'Yaracuyanos', visitante: 'Deportivo Lara', sede: 'San Felipe', fecha: 'S/D', score: null },
+            { jornada: 12, grupo: 'Centro-Occidental', local: 'LIBRE', visitante: 'Barquisimeto', sede: '-', fecha: 'S/D', score: null },
+
+            // JORNADA 13
+            { jornada: 13, grupo: 'Centro-Oriental', local: 'Atlético Ávila', visitante: 'Bolívar', sede: 'Caracas', fecha: 'S/D', score: null },
+            { jornada: 13, grupo: 'Centro-Oriental', local: 'Mineros', visitante: 'Marítimo La Guaira', sede: 'Puerto Ordaz', fecha: 'S/D', score: null },
+            { jornada: 13, grupo: 'Centro-Oriental', local: 'Dynamo Puerto', visitante: 'Aragua', sede: 'Puerto La Cruz', fecha: 'S/D', score: null },
+            { jornada: 13, grupo: 'Centro-Oriental', local: 'Monagas - B', visitante: 'Miranda', sede: 'Maturín', fecha: 'S/D', score: null },
+            { jornada: 13, grupo: 'Centro-Occidental', local: 'Real Frontera', visitante: 'Yaracuyanos', sede: 'San Cristóbal', fecha: 'S/D', score: null },
+            { jornada: 13, grupo: 'Centro-Occidental', local: 'Puerto Cabello - B', visitante: 'El Vigía', sede: 'Puerto Cabello', fecha: 'S/D', score: null },
+            { jornada: 13, grupo: 'Centro-Occidental', local: 'Zamora - B', visitante: 'Atlético Barinas', sede: 'Barinas', fecha: 'S/D', score: null },
+            { jornada: 13, grupo: 'Centro-Occidental', local: 'Barquisimeto', visitante: 'Ureña', sede: 'Barquisimeto', fecha: 'S/D', score: null },
+            { jornada: 13, grupo: 'Centro-Occidental', local: 'LIBRE', visitante: 'Deportivo Lara', sede: '-', fecha: 'S/D', score: null },
+
+            // JORNADA 14
+            { jornada: 14, grupo: 'Centro-Oriental', local: 'Bolívar', visitante: 'Miranda', sede: 'Ciudad Bolívar', fecha: 'S/D', score: null },
+            { jornada: 14, grupo: 'Centro-Oriental', local: 'Atlético Ávila', visitante: 'Mineros', sede: 'Caracas', fecha: 'S/D', score: null },
+            { jornada: 14, grupo: 'Centro-Oriental', local: 'Marítimo La Guaira', visitante: 'Dynamo Puerto', sede: 'La Guaira', fecha: 'S/D', score: null },
+            { jornada: 14, grupo: 'Centro-Oriental', local: 'Aragua', visitante: 'Monagas - B', sede: 'Maracay', fecha: 'S/D', score: null },
             { jornada: 14, grupo: 'Centro-Occidental', local: 'Atlético Barinas', visitante: 'Barquisimeto', sede: 'Barinas', fecha: 'S/D', score: null },
+            { jornada: 14, grupo: 'Centro-Occidental', local: 'El Vigía', visitante: 'Zamora - B', sede: 'El Vigía', fecha: 'S/D', score: null },
+            { jornada: 14, grupo: 'Centro-Occidental', local: 'Yaracuyanos', visitante: 'Puerto Cabello - B', sede: 'San Felipe', fecha: 'S/D', score: null },
+            { jornada: 14, grupo: 'Centro-Occidental', local: 'Deportivo Lara', visitante: 'Real Frontera', sede: 'Cabudare', fecha: 'S/D', score: null },
+            { jornada: 14, grupo: 'Centro-Occidental', local: 'LIBRE', visitante: 'Ureña', sede: '-', fecha: 'S/D', score: null },
+
+            // JORNADA 15 (OCC)
             { jornada: 15, grupo: 'Centro-Occidental', local: 'Puerto Cabello - B', visitante: 'Deportivo Lara', sede: 'Puerto Cabello', fecha: 'S/D', score: null },
+            { jornada: 15, grupo: 'Centro-Occidental', local: 'Zamora - B', visitante: 'Yaracuyanos', sede: 'Barinas', fecha: 'S/D', score: null },
+            { jornada: 15, grupo: 'Centro-Occidental', local: 'Barquisimeto', visitante: 'El Vigía', sede: 'Barquisimeto', fecha: 'S/D', score: null },
+            { jornada: 15, grupo: 'Centro-Occidental', local: 'Ureña', visitante: 'Atlético Barinas', sede: 'Ureña', fecha: 'S/D', score: null },
+            { jornada: 15, grupo: 'Centro-Occidental', local: 'LIBRE', visitante: 'Real Frontera', sede: '-', fecha: 'S/D', score: null },
+
+            // JORNADA 16 (OCC)
             { jornada: 16, grupo: 'Centro-Occidental', local: 'El Vigía', visitante: 'Ureña', sede: 'El Vigía', fecha: 'S/D', score: null },
+            { jornada: 16, grupo: 'Centro-Occidental', local: 'Yaracuyanos', visitante: 'Barquisimeto', sede: 'San Felipe', fecha: 'S/D', score: null },
+            { jornada: 16, grupo: 'Centro-Occidental', local: 'Deportivo Lara', visitante: 'Zamora - B', sede: 'Cabudare', fecha: 'S/D', score: null },
+            { jornada: 16, grupo: 'Centro-Occidental', local: 'Real Frontera', visitante: 'Puerto Cabello - B', sede: 'San Cristóbal', fecha: 'S/D', score: null },
+            { jornada: 16, grupo: 'Centro-Occidental', local: 'LIBRE', visitante: 'Atlético Barinas', sede: '-', fecha: 'S/D', score: null },
+
+            // JORNADA 17 (OCC)
             { jornada: 17, grupo: 'Centro-Occidental', local: 'Zamora - B', visitante: 'Real Frontera', sede: 'Barinas', fecha: 'S/D', score: null },
+            { jornada: 17, grupo: 'Centro-Occidental', local: 'Barquisimeto', visitante: 'Deportivo Lara', sede: 'Barquisimeto', fecha: 'S/D', score: null },
+            { jornada: 17, grupo: 'Centro-Occidental', local: 'Ureña', visitante: 'Yaracuyanos', sede: 'Ureña', fecha: 'S/D', score: null },
+            { jornada: 17, grupo: 'Centro-Occidental', local: 'Atlético Barinas', visitante: 'El Vigía', sede: 'Barinas', fecha: 'S/D', score: null },
+            { jornada: 17, grupo: 'Centro-Occidental', local: 'LIBRE', visitante: 'Puerto Cabello - B', sede: '-', fecha: 'S/D', score: null },
+
+            // JORNADA 18 (OCC)
             { jornada: 18, grupo: 'Centro-Occidental', local: 'Yaracuyanos', visitante: 'Atlético Barinas', sede: 'San Felipe', fecha: 'S/D', score: null },
             { jornada: 18, grupo: 'Centro-Occidental', local: 'Deportivo Lara', visitante: 'Ureña', sede: 'Cabudare', fecha: 'S/D', score: null },
             { jornada: 18, grupo: 'Centro-Occidental', local: 'Real Frontera', visitante: 'Barquisimeto', sede: 'San Cristóbal', fecha: 'S/D', score: null },
@@ -270,7 +400,6 @@
             const tabView = document.getElementById('view-tablas');
             const btnCal = document.getElementById('btn-calendario');
             const btnTab = document.getElementById('btn-tablas');
-
             if (view === 'calendario') {
                 calView.classList.remove('hidden'); tabView.classList.add('hidden');
                 btnCal.classList.add('bg-white', 'shadow-sm', 'text-blue-700'); btnCal.classList.remove('text-neutral-500');
@@ -304,7 +433,6 @@
                     if (m.visitante !== 'LIBRE' && !stats[m.visitante]) stats[m.visitante] = { equipo: m.visitante, pj: 0, g: 0, e: 0, p: 0, gf: 0, gc: 0, dg: 0, pts: 0 };
                 }
             });
-
             scheduleData.forEach(m => {
                 if (m.grupo === group && m.score && m.local !== 'LIBRE' && m.visitante !== 'LIBRE') {
                     const [gLocal, gVisitante] = m.score.split('-').map(Number);
@@ -316,7 +444,6 @@
                     else { stats[m.local].e++; stats[m.visitante].e++; stats[m.local].pts += 1; stats[m.visitante].pts += 1; }
                 }
             });
-
             return Object.values(stats).map(s => ({ ...s, dg: s.gf - s.gc }))
                 .sort((a, b) => (b.pts - a.pts) || (b.dg - a.dg) || (b.gf - a.gf));
         }
@@ -374,7 +501,6 @@
                 const matchesSearch = m.local.toLowerCase().includes(searchTerm) || m.visitante.toLowerCase().includes(searchTerm);
                 return matchesJornada && matchesGroup && matchesSearch;
             });
-
             if (filtered.length === 0) {
                 list.innerHTML = `<div class="flex flex-col items-center justify-center py-20 bg-white rounded-[2.5rem] border border-dashed border-neutral-300 text-center px-10"><i data-lucide="info" class="w-10 h-10 text-neutral-200 mb-4"></i><p class="text-neutral-400 font-bold text-lg uppercase">No hay encuentros programados</p></div>`;
             } else {
@@ -402,29 +528,61 @@
             lucide.createIcons();
         }
 
-        // --- EXPORTACIÓN ---
+        // --- EXPORTACIÓN CON FIRMA ---
         function exportToExcel() {
             const calData = scheduleData.map(m => ({ JORNADA: m.jornada, GRUPO: m.grupo, LOCAL: m.local, SCORE: m.score || 'VS', VISITANTE: m.visitante, SEDE: m.sede === '-' ? 'Descanso' : m.sede, FECHA: m.fecha }));
             const standingsOcc = calculateStandings('Centro-Occidental').map((s, i) => ({ POS: i + 1, EQUIPO: s.equipo, PJ: s.pj, G: s.g, E: s.e, P: s.p, GF: s.gf, GC: s.gc, DG: s.dg, PTS: s.pts }));
             const standingsOri = calculateStandings('Centro-Oriental').map((s, i) => ({ POS: i + 1, EQUIPO: s.equipo, PJ: s.pj, G: s.g, E: s.e, P: s.p, GF: s.gf, GC: s.gc, DG: s.dg, PTS: s.pts }));
+            
             const wb = XLSX.utils.book_new();
-            const wsCal = XLSX.utils.json_to_sheet(calData); wsCal['!cols'] = [{wch:10}, {wch:20}, {wch:25}, {wch:10}, {wch:25}, {wch:20}, {wch:15}]; XLSX.utils.book_append_sheet(wb, wsCal, "Calendario");
-            const wsOcc = XLSX.utils.json_to_sheet(standingsOcc); XLSX.utils.book_append_sheet(wb, wsOcc, "Posiciones OCC");
-            const wsOri = XLSX.utils.json_to_sheet(standingsOri); XLSX.utils.book_append_sheet(wb, wsOri, "Posiciones ORI");
-            XLSX.writeFile(wb, "Reporte_FUTVE_2_2026.xlsx");
+            
+            // Hoja Calendario
+            const wsCal = XLSX.utils.json_to_sheet(calData);
+            // Añadir firma
+            XLSX.utils.sheet_add_aoa(wsCal, [[""], ["Reporte generado por ditt0tech - Todos los derechos reservados"]], { origin: -1 });
+            wsCal['!cols'] = [{wch:10}, {wch:20}, {wch:25}, {wch:10}, {wch:25}, {wch:20}, {wch:15}];
+            XLSX.utils.book_append_sheet(wb, wsCal, "Calendario");
+
+            // Hoja Occidental
+            const wsOcc = XLSX.utils.json_to_sheet(standingsOcc);
+            wsOcc['!cols'] = [{wch:5}, {wch:25}, {wch:5}, {wch:5}, {wch:5}, {wch:5}, {wch:5}, {wch:5}, {wch:5}, {wch:8}];
+            XLSX.utils.sheet_add_aoa(wsOcc, [[""], ["Reporte generado por ditt0tech - Todos los derechos reservados"]], { origin: -1 });
+            XLSX.utils.book_append_sheet(wb, wsOcc, "Posiciones OCC");
+
+            // Hoja Oriental
+            const wsOri = XLSX.utils.json_to_sheet(standingsOri);
+            wsOri['!cols'] = [{wch:5}, {wch:25}, {wch:5}, {wch:5}, {wch:5}, {wch:5}, {wch:5}, {wch:5}, {wch:5}, {wch:8}];
+            XLSX.utils.sheet_add_aoa(wsOri, [[""], ["Reporte generado por ditt0tech - Todos los derechos reservados"]], { origin: -1 });
+            XLSX.utils.book_append_sheet(wb, wsOri, "Posiciones ORI");
+
+            XLSX.writeFile(wb, "Reporte_FUTVE_2_2026_ditt0tech.xlsx");
         }
 
         async function exportToPDF() {
             const { jsPDF } = window.jspdf; const doc = new jsPDF();
-            const occidental = calculateStandings('Centro-Occidental'); const oriental = calculateStandings('Centro-Oriental');
+            
             doc.setFontSize(22); doc.setTextColor(29, 78, 216); doc.text("LIGA FUTVE 2 - REPORTE 2026", 14, 20);
+            doc.setFontSize(10); doc.setTextColor(150); doc.text("Powered by ditt0tech", 14, 28);
+            
+            const occidental = calculateStandings('Centro-Occidental');
             doc.setFontSize(14); doc.setTextColor(245, 158, 11); doc.text("GRUPO CENTRO-OCCIDENTAL", 14, 40);
-            doc.autoTable({ startY: 45, head: [['#', 'Equipo', 'PJ', 'G', 'E', 'P', 'GF', 'GC', 'DG', 'PTS']], body: occidental.map((s, i) => [i + 1, s.equipo, s.pj, s.g, s.e, s.p, s.gf, s.gc, s.dg, s.pts]), headStyles: { fillColor: [245, 158, 11] } });
+            doc.autoTable({ startY: 45, head: [['#', 'Equipo', 'PJ', 'G', 'E', 'P', 'GF', 'GC', 'DG', 'PTS']], body: occidental.map((s, i) => [i + 1, s.equipo, s.pj, s.g, s.e, s.p, s.gf, s.gc, s.dg, s.pts]), headStyles: { fillColor: [245, 158, 11] }, styles: { fontSize: 9 } });
+            
+            const oriental = calculateStandings('Centro-Oriental');
             doc.setTextColor(29, 78, 216); doc.text("GRUPO CENTRO-ORIENTAL", 14, doc.lastAutoTable.finalY + 15);
-            doc.autoTable({ startY: doc.lastAutoTable.finalY + 20, head: [['#', 'Equipo', 'PJ', 'G', 'E', 'P', 'GF', 'GC', 'DG', 'PTS']], body: oriental.map((s, i) => [i + 1, s.equipo, s.pj, s.g, s.e, s.p, s.gf, s.gc, s.dg, s.pts]), headStyles: { fillColor: [29, 78, 216] } });
-            doc.addPage(); doc.setFontSize(18); doc.setTextColor(51); doc.text("FIXTURE COMPLETO", 14, 20);
+            doc.autoTable({ startY: doc.lastAutoTable.finalY + 20, head: [['#', 'Equipo', 'PJ', 'G', 'E', 'P', 'GF', 'GC', 'DG', 'PTS']], body: oriental.map((s, i) => [i + 1, s.equipo, s.pj, s.g, s.e, s.p, s.gf, s.gc, s.dg, s.pts]), headStyles: { fillColor: [29, 78, 216] }, styles: { fontSize: 9 } });
+            
+            // Firma Footer Página 1
+            doc.setFontSize(8); doc.setTextColor(150); doc.text("© 2026 ditt0tech - Todos los derechos reservados", 14, doc.internal.pageSize.height - 10);
+
+            doc.addPage(); 
+            doc.setFontSize(18); doc.setTextColor(51); doc.text("FIXTURE COMPLETO", 14, 20);
             doc.autoTable({ startY: 25, head: [['Jor.', 'Grupo', 'Local', 'Score', 'Visitante', 'Sede', 'Fecha']], body: scheduleData.map(m => [m.jornada, m.grupo, m.local, m.score || 'VS', m.visitante, m.sede, m.fecha]), headStyles: { fillColor: [51, 65, 85] }, styles: { fontSize: 8 } });
-            doc.save("Reporte_Oficial_FUTVE_2.pdf");
+            
+            // Firma Footer Página 2
+            doc.setFontSize(8); doc.setTextColor(150); doc.text("© 2026 ditt0tech - Todos los derechos reservados", 14, doc.internal.pageSize.height - 10);
+            
+            doc.save("Reporte_Oficial_FUTVE_2_ditt0tech.pdf");
         }
 
         window.onload = init;
