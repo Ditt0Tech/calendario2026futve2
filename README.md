@@ -1,4 +1,4 @@
-# calendario2026futve2
+# CLENDARIO DE JORNADAS Y TABLA DE POSICIONES DE LA FUTVE 2
 
 ⚽ Calendario y Posiciones - Liga FUTVE 2 (Temporada 2026)
 Este proyecto es una aplicación web interactiva diseñada para seguir de cerca la Temporada 2026 de la Liga FUTVE 2 (Segunda División de Venezuela). Permite consultar el calendario completo de las 18 jornadas y visualizar las tablas de posiciones actualizadas de los grupos Centro-Occidental y Centro-Oriental.
