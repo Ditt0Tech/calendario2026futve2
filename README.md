@@ -37,7 +37,7 @@ No requiere instalación de servidores pesados. Al ser un sitio estático, puede
 Clona el repositorio:
 
 Bash
-git clone https://github.com/TU_USUARIO/NOMBRE_REPOSITORIO.git
+git clone https://ditt0tech.github.io/calendario2026futve2/
 Asegúrate de que el archivo del logo (image_07ca51.png) esté en la misma carpeta raíz.
 
 Abre index.html en tu navegador.
